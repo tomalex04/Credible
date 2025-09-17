@@ -1,4 +1,4 @@
-# Fake News Detection (GDELT + Gemini) with Minimal UI
+# Fake News Detection (GDELT + Gemini)
 
 This app takes a user query, builds robust GDELT queries via Gemini, fetches articles, analyzes outlet bias, ranks articles with local embeddings, and returns a concise, multi‑perspective summary. The UI renders exactly what the backend returns (no extra formatting or hardcoded values).
 
@@ -69,5 +69,20 @@ Notes:
 - When false, all domains are considered.
 
 ## Frontend
-- static/ contains a minimal JS client.
-- It outputs exactly the summary string received from backend (no hardcoded counts/colors/extra text; no horizontal scrolling).
+- Primary UI: Flutter app in `misinformationui/`.
+- Optional debug client: `static/` minimal JS page (useful for quick backend checks only).
+
+### Run the Flutter UI
+1) Start the backend (see Run section below) so it listens on http://localhost:5000
+
+2) In a separate terminal, run the Flutter app:
+   - cd misinformationui
+   - flutter pub get
+   - Choose a target:
+     - Web (Chrome): flutter run -d chrome
+     - Linux desktop: flutter run -d linux (ensure Linux desktop is enabled in Flutter)
+     - Android emulator: flutter run -d emulator
+       - Update the API URL in `misinformationui/lib/chat_screen.dart` from `http://localhost:5000` to `http://10.0.2.2:5000` for Android emulators, or use your machine's LAN IP for real devices.
+     - iOS simulator: `http://localhost:5000` should work; real devices need your machine's LAN IP.
+
+Note: The legacy `static/` page is kept for quick smoke tests; the production UX is the Flutter app.
