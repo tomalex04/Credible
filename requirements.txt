@@ -1,0 +1,16 @@
+requests>=2.28.0
+sentence-transformers>=2.2.0
+python-dotenv>=1.0.0
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.20.0
+transformers>=4.20.0
+tqdm>=4.64.0
+google-generativeai>=0.8.0
+flask>=2.0.0
+flask-cors>=3.0.10
+# Optional: if you have an NVIDIA GPU, uncomment the following lines
+# nvidia-cuda-runtime-cu11
+# nvidia-cuda-cupti-cu11
+# nvidia-cudnn-cu11
+# nvidia-cublas-cu11
