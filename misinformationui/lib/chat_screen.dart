@@ -209,16 +209,25 @@ Future<void> _sendMessage() async {
               child: Row(
                 children: [
                   Expanded(
+                    child: Theme(
+                      data: ThemeData(
+                        textSelectionTheme: TextSelectionThemeData(
+                          selectionColor: Colors.grey.withOpacity(0.5),
+                          cursorColor: Colors.white,
+                        )
+                      ),
                     child: TextField(
                       controller: _controller,
-                      cursorColor: Colors.white,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        ),
                       decoration: const InputDecoration(
                         hintText: 'Type an info to verify...',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: InputBorder.none,
                       ),
                       onSubmitted: (_) => _sendMessage(),
+                    ),
                     ),
                   ),
                   IconButton(
@@ -252,45 +261,52 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.8,
-        ),
-        margin: const EdgeInsets.only(bottom: 4),
-        padding: const EdgeInsets.all(10),
-        decoration: message.isUser
-            ? BoxDecoration(
-                color: const Color(0xFF414141),
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
-                  bottomLeft: Radius.circular(message.isUser ? 15 : 5),
-                  bottomRight: Radius.circular(message.isUser ? 5 : 15),
-                ),
-              )
-            : null,
-        child: message.isLoading
-            ? LoadingIndicator(
-                isCompleted: message.isStepCompleted ?? false,
-              )
-            : message.isPreFormatted
-                ? SelectableLinkify(
-                    text: message.text,
-                    onOpen: _onOpen,
-                    linkStyle: const TextStyle(
-                      color: Colors.blueAccent,
-                      decoration: TextDecoration.underline
-                    ),
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  )
-                : Text(
-                    message.text,
-                    style: const TextStyle(color: Colors.white),
+      child: Theme(data: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: Colors.grey.withOpacity(0.5),
+        )
+      ),
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.8,
+          ),
+          margin: const EdgeInsets.only(bottom: 4),
+          padding: const EdgeInsets.all(10),
+          decoration: message.isUser
+              ? BoxDecoration(
+                  color: const Color(0xFF414141),
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(20),
+                    topRight: const Radius.circular(20),
+                    bottomLeft: Radius.circular(message.isUser ? 15 : 5),
+                    bottomRight: Radius.circular(message.isUser ? 5 : 15),
                   ),
+                )
+              : null,
+          child: message.isLoading
+              ? LoadingIndicator(
+                  isCompleted: message.isStepCompleted ?? false,
+                )
+              : message.isPreFormatted
+                  ? SelectableLinkify(
+                      text: message.text,
+                      onOpen: _onOpen,
+                      linkStyle: const TextStyle(
+                        color: Colors.blueAccent,
+                        decoration: TextDecoration.underline
+                      ),
+                      
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    )
+                  : Text(
+                      message.text,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+        ),
       ),
     );
   }
