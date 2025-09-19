@@ -125,10 +125,15 @@ def main():
     app = Flask(__name__, static_folder='static')
     CORS(app)  # Enable CORS for all routes
     
+    @app.route('/')
+    def root():
+        """Serve the main page from root."""
+        return app.send_static_file('index.html')
+        
     @app.route('/static/')
-    def index():
-        """Serve the main page."""
-        return app.send_static_file('front.html')
+    def static_index():
+        """Serve the main page from /static/ path."""
+        return app.send_static_file('index.html')
 
     
     @app.route('/api/detect', methods=['POST'])

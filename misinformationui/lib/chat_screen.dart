@@ -52,8 +52,9 @@ Future<void> _sendMessage() async {
   final loadingMessageIndex = _messages.length - 1;
 
   try {
+    // Use absolute URL to ensure API calls work regardless of base href
     final response = await http.post(
-      Uri.parse('http://localhost:5000/api/detect'),
+      Uri.parse('/api/detect'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'query': query}),
     );
@@ -140,6 +141,11 @@ Future<void> _sendMessage() async {
           Expanded(
             child: Stack(
               children: [
+                // Background
+                Container(
+                  color: const Color(0xFF171717), // Ensure the background color is consistent
+                ),
+                // Welcome screen shown when no messages
                 if (!_isBackgroundBlurred)
                   Center(
                     child: SizedBox(
@@ -178,8 +184,10 @@ Future<void> _sendMessage() async {
                       ),
                     ),
                   ),
+                // Message list shown when there are messages
                 if (_isBackgroundBlurred)
-                  Expanded(
+                  Container(
+                    color: const Color(0xFF171717), // Ensure the chat background is consistent
                     child: ListView.builder(
                       controller: _scrollController,
                       padding: const EdgeInsets.all(15),
